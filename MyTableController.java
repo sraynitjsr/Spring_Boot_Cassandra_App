@@ -16,21 +16,25 @@ public class MyTableController {
     private MyTableService service;
 
     @GetMapping
+    @RateLimit("getAllData")
     public List<MyTableModel> getAllData() {
         return service.getAllData();
     }
 
     @GetMapping("/{id}")
+    @RateLimit("getDataById")
     public MyTableModel getDataById(@PathVariable UUID id) {
         return service.getDataById(id);
     }
 
     @PostMapping
+    @RateLimit("saveData")
     public MyTableModel saveData(@RequestBody MyTableModel model) {
         return service.saveData(model);
     }
 
     @DeleteMapping("/{id}")
+    @RateLimit("deleteData")
     public void deleteData(@PathVariable UUID id) {
         service.deleteData(id);
     }
