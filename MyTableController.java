@@ -38,4 +38,9 @@ public class MyTableController {
     public void deleteData(@PathVariable UUID id) {
         service.deleteData(id);
     }
+    
+    @GetMapping("/namesInRange")
+    public List<String> getNamesInRange(@RequestParam int minAge, @RequestParam int maxAge) {
+        return service.getNamesInRange(minAge, maxAge);
+    }
 }
