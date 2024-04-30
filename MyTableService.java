@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MyTableService {
@@ -28,5 +29,10 @@ public class MyTableService {
 
     public void deleteData(UUID id) {
         repository.deleteById(id);
+    }
+    
+    public List<String> getNamesInRange(int minAge, int maxAge) {
+        List<MyTableModel> modelsInRange = repository.findByAgeBetween(minAge, maxAge);
+        return modelsInRange.stream().map(MyTableModel::getName).collect(Collectors.toList());
     }
 }
