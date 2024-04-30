@@ -3,6 +3,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,35 @@ public class MyTableRepositoryTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void testFindById() {
+        MyTableModel model = new MyTableModel();
+        UUID id = UUID.randomUUID();
+        when(repository.findById(id)).thenReturn(Optional.of(model));
+
+        Optional<MyTableModel> result = repository.findById(id);
+
+        assertTrue(result.isPresent());
+        assertEquals(model, result.get());
+    }
+
+    @Test
+    public void testSave() {
+        MyTableModel model = new MyTableModel();
+        when(repository.save(model)).thenReturn(model);
+
+        MyTableModel result = repository.save(model);
+
+        assertEquals(model, result);
+    }
+
+    @Test
+    public void testDeleteById() {
+        UUID id = UUID.randomUUID();
+
+        assertDoesNotThrow(() -> repository.deleteById(id));
     }
 
     @Test
